@@ -33,7 +33,7 @@ const Signup = () => {
   };
     const saveSocialUser = (name , email) =>{
       const user = {name , email , gender:'none', description:'description', coverImg:'coverImg', address:'address', institute:'institute', birthdate:'birthdate'};
-      fetch('http://localhost:5000/users', {
+      fetch('https://share-talk-server.vercel.app/users', {
           method: 'POST' ,
           headers: {
               'content-type' : 'application/json'
@@ -94,7 +94,7 @@ const Signup = () => {
   };
     const saveUser = (name , email , gender, photo, description, coverImg, address, institute, birthdate) =>{
       const user = {name , email , gender, photo, description, coverImg, address, institute, birthdate};
-      fetch('http://localhost:5000/users', {
+      fetch('https://share-talk-server.vercel.app/users', {
           method: 'POST' ,
           headers: {
               'content-type' : 'application/json'

@@ -5,6 +5,7 @@ import EditProfile from "../Pages/About/EditProfile";
 import Home from "../Pages/Home/Home";
 import Media from "../Pages/Media/Media";
 import PostDetails from "../Pages/Media/PostDetails";
+import Message from "../Pages/Message/Message";
 import SignIn from "../Pages/SignIn/SignIn";
 import Signup from "../Pages/Signup/Signup";
 import PrivateRoute from "./PrivateRoute";
@@ -31,9 +32,13 @@ const router = createBrowserRouter([
                 element: <About></About>
             },
             {
+                path: '/message',
+                element: <Message></Message>
+            },
+            {
                 path: '/editProfile/:id',
                 element: <EditProfile></EditProfile>,
-                loader: ({params})=>fetch(`http://localhost:5000/user/${params.id}`),
+                loader: ({params})=>fetch(`https://share-talk-server.vercel.app/user/${params.id}`),
             },
             {
                 path: '/posts/:id',

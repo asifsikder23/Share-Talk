@@ -12,7 +12,7 @@ const GetComment = ({ id }) => {
   } = useQuery({
     queryKey: ["comments"],
     queryFn: async () => {
-      const res = await fetch('http://localhost:5000/comment', {
+      const res = await fetch('https://share-talk-server.vercel.app/comment', {
         headers: {},
       });
       const data = await res.json();

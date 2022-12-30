@@ -10,7 +10,7 @@ const EditProfile = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
     // console.log(user);
-    fetch(`http://localhost:5000/users/${storedUser._id}`, {
+    fetch(`https://share-talk-server.vercel.app/users/${storedUser._id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

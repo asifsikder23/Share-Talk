@@ -20,7 +20,7 @@ const About = () => {
     queryKey: ["info", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/user?email=${user?.email}`,
+        `https://share-talk-server.vercel.app/user?email=${user?.email}`,
         {
           headers: {},
         }

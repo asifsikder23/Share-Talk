@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import GetComment from "./GetComment";
 import PostComment from "./PostComment";
@@ -12,7 +12,7 @@ const PostDetails = () => {
   console.log(id);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/posts/${id}`)
+    fetch(`https://share-talk-server.vercel.app/posts/${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -22,7 +22,7 @@ const PostDetails = () => {
 
   const handleLike = (id) => {
     console.log("hit outside");
-    fetch(`http://localhost:5000/like/${id}`, {
+    fetch(`https://share-talk-server.vercel.app/like/${id}`, {
       method: "PUT",
     })
       .then((res) => res.json())

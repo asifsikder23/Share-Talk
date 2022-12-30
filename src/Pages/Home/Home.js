@@ -5,11 +5,11 @@ import Upload from "./Upload/Upload";
 const Home = () => {
   return (
     <div>
-      <div className="flex justify-between gap-5 m-2">
+      <div className="lg:flex justify-between gap-5 m-2 p-5">
         <div className="md:w-2/4">
           <Upload></Upload>
         </div>
-        <div className="md:w-2/4">
+        <div className="hidden lg:flex">
           <iframe
             width="560"
             height="315"
@@ -21,13 +21,8 @@ const Home = () => {
           ></iframe>
         </div>
       </div>
-      <div className="flex justify-between gap-5 m-2">
-        <div className="md:w-2/4">
-          <TopPosts></TopPosts>
-        </div>
-        <div className="md:w-2/4">
-          
-        </div>
+      <div>
+        <TopPosts></TopPosts>
       </div>
     </div>
   );

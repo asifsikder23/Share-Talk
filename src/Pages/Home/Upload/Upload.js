@@ -12,9 +12,11 @@ const Upload = () => {
   } = useForm();
 
   const handleAddPost = (data) => {
+    
     const image = data.image[0];
     const formData = new FormData();
     formData.append("image", image);
+    
     fetch(
       `https://api.imgbb.com/1/upload?key=${"b9b258b2d7931dedd2b31dda9078c475"}`,
       {
@@ -31,12 +33,15 @@ const Upload = () => {
             postMessage: data.message,
             name: user.displayName,
             photo: user.photoURL,
+            comment: 'comment',
             like: 0,
             images: imgData.data.url,
             time: new Date(),
+            
           };
           console.log(addPost);
-          fetch("http://localhost:5000/posts", {
+          
+          fetch("https://share-talk-server.vercel.app/posts", {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -51,6 +56,7 @@ const Upload = () => {
         }
       });
   };
+  
   return (
     <div className="border">
       <div className="text-white">

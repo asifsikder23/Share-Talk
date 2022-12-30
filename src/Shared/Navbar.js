@@ -8,13 +8,13 @@ const Navbar = () => {
   const menuItems = (
     <>
       <li className="relative font-medium text-white focus:text-red-500 hover:text-red-500 before:absolute before:-bottom-1 before:h-0.5 before:w-full before:origin-left before:scale-x-0 before:bg-white before:transition hover:before:scale-100">
-        <Link to={"/"}>Home</Link>
+        <a href="/">Home</a>
       </li>
       <li className="relative font-medium text-white focus:text-red-500 hover:text-red-500 before:absolute before:-bottom-1 before:h-0.5 before:w-full before:origin-left before:scale-x-0 before:bg-white before:transition hover:before:scale-100">
-        <Link to={"/blog"}>Message</Link>
+        <Link to={"/message"}>Message</Link>
       </li>
       <li className="relative font-medium text-white focus:text-red-500 hover:text-red-500 before:absolute before:-bottom-1 before:h-0.5 before:w-full before:origin-left before:scale-x-0 before:bg-white before:transition hover:before:scale-100">
-        <Link to={"/media"}>Media</Link>
+        <a href="/media">Media</a>
       </li>
       {user ? (
         <li className="relative font-medium text-white before:absolute before:-bottom-1 before:h-0.5 before:w-full before:origin-left before:scale-x-0 before:bg-white before:transition hover:before:scale-100">

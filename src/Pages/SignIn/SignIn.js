@@ -1,9 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { AuthContext } from "../../Context/UserContext";
 import logo from "../../Assets/sharetalk text logo.png";
-import useToken from "../../Hook/UseToken";
+import { AuthContext } from "../../Context/UserContext";
 
 const SignIn = () => {
 
@@ -27,7 +26,7 @@ const SignIn = () => {
   };
     const saveSocialUser = (name , email) =>{
       const user = {name , email , gender:'none', description:'description', coverImg:'coverImg', address:'address', institute:'institute', birthdate:'birthdate'};
-      fetch('http://localhost:5000/users', {
+      fetch('https://share-talk-server.vercel.app/users', {
           method: 'POST' ,
           headers: {
               'content-type' : 'application/json'
@@ -85,7 +84,7 @@ const handleResetPass = () => {
 };
 
 const userToken = email =>{
-  fetch(`http://localhost:5000/jwt?email=${email}`)
+  fetch(`https://share-talk-server.vercel.app/jwt?email=${email}`)
   .then(res=>res.json())
   .then(data=>{
     if(data.accessToken){
