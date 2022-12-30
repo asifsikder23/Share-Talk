@@ -4,13 +4,18 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import logo from "../../Assets/sharetalk text logo.png";
 import { AuthContext } from "../../Context/UserContext";
+import useToken from "../../Hook/UseToken";
 
 const Signup = () => {
   const { googleSignIn, auth, createUser } = useContext(AuthContext);
-  const [ setCreatedUserEmail] = useState("");
-
+  const [createdUserEmail, setCreatedUserEmail] = useState('')
+  const [token] = useToken(createdUserEmail);
   const navigate = useNavigate();
   const location = useLocation();
+
+  if(token){
+    navigate('/')
+  }
 
   const from = location.state?.from?.pathname || "/";
 

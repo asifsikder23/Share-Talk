@@ -3,84 +3,97 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Context/UserContext";
 import logo from "../../Assets/sharetalk text logo.png";
+import useToken from "../../Hook/UseToken";
 
 const SignIn = () => {
-  const [ setCreatedUserEmail] = useState("");
-  const navigate = useNavigate();
-  const location = useLocation();
+
+  const navigate = useNavigate()
+  const location = useLocation()
   const from = location.state?.from?.pathname || "/";
-  const { googleSignIn, login } = useContext(AuthContext);
+  const {googleSignIn, login} = useContext(AuthContext)
   const [userEmail, setUserEmail] = useState("");
 
   const handleGoogleLogIn = () => {
     googleSignIn()
       .then((result) => {
         const user = result.user;
-        saveSocialUser(user.displayName, user.email, user.role);
+        saveSocialUser(user.displayName, user.email, user.gender)
+        console.log(user);
         navigate(from, { replace: true });
       })
       .catch((error) => {
         console.error("error: ", error);
       });
   };
-  const saveSocialUser = (name , email) =>{
-    const user = {name , email , gender:'none', description:'description', coverImg:'coverImg', address:'address', institute:'institute'};
-    fetch('http://localhost:5000/users', {
-        method: 'POST' ,
-        headers: {
-            'content-type' : 'application/json'
-        },
-        body: JSON.stringify(user)
-    }).then(res => res.json())
-    .then(data =>{
-      setCreatedUserEmail(email);
-        console.log('test',data);
+    const saveSocialUser = (name , email) =>{
+      const user = {name , email , gender:'none', description:'description', coverImg:'coverImg', address:'address', institute:'institute', birthdate:'birthdate'};
+      fetch('http://localhost:5000/users', {
+          method: 'POST' ,
+          headers: {
+              'content-type' : 'application/json'
+          },
+          body: JSON.stringify(user)
+      }).then(res => res.json())
+      .then(data =>{
+        userToken(email);
+          console.log('test',data);
 
-    })
-}
-  const handleLogIn = (event) => {
-    event.preventDefault();
+      })
+  }
+  const handleLogIn = event =>{
+    event.preventDefault()
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
 
     login(email, password)
-      .then((result) => {
-        const user = result.user;
-        navigate(from, { replace: true });
-        console.log(user);
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Log in Success",
-          showConfirmButton: false,
-          timer: 1500,
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            setUserEmail(email);
-          })
-          .catch((err) => console.log(err));
+    .then(result =>{
+      const user = result.user;
+      navigate(from,{replace:true})
+      console.log(user);
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Log in Success',
+        showConfirmButton: false,
+        timer: 1500
+        
       })
-      .catch((err) => {
-        console.error(err);
-        Swal.fire({
-          title: "Are you Sick ???",
-          text: "Wrong Email or Password.",
-          imageUrl:
-            "https://images.squarespace-cdn.com/content/v1/57b35bff46c3c465f6192fcc/1500384081174-1RVJTEAJNRH3T4EOG9KD/image-asset.gif",
-          imageWidth: 400,
-          imageHeight: 200,
-          imageAlt: "Custom image",
-        });
-      });
-  };
-  const handleResetPass = () => {
-    if (!userEmail) {
-      Swal.fire("Please check your mail");
-      return;
+      .then(res => res.json())
+      .then(data => {
+        setUserEmail(email);
+      })
+      .catch(err => console.log(err))
+    })
+    .catch(err =>{
+      console.error(err);
+      Swal.fire({
+        title: 'Are you Sick ???',
+        text: 'Wrong Email or Password.',
+        imageUrl: 'https://images.squarespace-cdn.com/content/v1/57b35bff46c3c465f6192fcc/1500384081174-1RVJTEAJNRH3T4EOG9KD/image-asset.gif',
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: 'Custom image',
+      })
+    })
+}
+const handleResetPass = () => {
+ if (!userEmail) {
+   Swal.fire("Please check your mail");
+   return;
+ }
+};
+
+const userToken = email =>{
+  fetch(`http://localhost:5000/jwt?email=${email}`)
+  .then(res=>res.json())
+  .then(data=>{
+    if(data.accessToken){
+      localStorage.setItem('accessToken', data.accessToken)
+      navigate('/')
     }
-  };
+  })
+}
   return (
     <div>
       <section className="dark:bg-zinc-900">
