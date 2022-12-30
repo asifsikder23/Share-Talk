@@ -11,7 +11,7 @@ const Media = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["info", user],
+    queryKey: ["posts", user],
     queryFn: async () => {
       const res = await fetch(
         'http://localhost:5000/posts',

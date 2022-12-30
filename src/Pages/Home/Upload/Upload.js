@@ -31,8 +31,7 @@ const Upload = () => {
             postMessage: data.message,
             name: user.displayName,
             photo: user.photoURL,
-            like: '0',
-            comment: '',
+            like: 0,
             images: imgData.data.url,
             time: new Date(),
           };

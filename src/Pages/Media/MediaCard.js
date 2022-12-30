@@ -1,9 +1,28 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import PostComment from "./PostComment";
 
 const MediaCard = ({ media, setDatas }) => {
   const { photo, name, postMessage, images, privacy, like, _id } = media;
   console.log(media);
+
+  const [details, setDetails] = useState([]);
+  const [likeCount, setLikeCount] = useState(details?.like);
+
+  const handleLike = (_id) => {
+    console.log("hit outside");
+    fetch(`http://localhost:5000/like/${_id}`, {
+      method: "PUT",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+
+        if (data.modifiedCount > 0) {
+          setLikeCount((prevLikeCount) => prevLikeCount + 1);
+        }
+      });
+  };
 
   return (
     <div>
@@ -40,8 +59,8 @@ const MediaCard = ({ media, setDatas }) => {
             >
               <li>
                 <Link to={`/posts/${_id}`}>
-              <button>See Details</button>
-            </Link>
+                  <button>See Details</button>
+                </Link>
               </li>
               <li>
                 <a>Delete</a>
@@ -58,6 +77,7 @@ const MediaCard = ({ media, setDatas }) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <button
+              onClick={()=> handleLike(_id)}
                 type="button"
                 title="Like post"
                 className="flex items-center justify-center"
@@ -88,13 +108,7 @@ const MediaCard = ({ media, setDatas }) => {
           </div>
           <div className="space-y-3">
             <p className="text-sm">{postMessage}</p>
-            <input
-              type="text"
-              placeholder="Add a comment..."
-              className="w-full py-2 border dark:bg-transparent rounded text-sm pl-0 dark:text-gray-100"
-            />
-            <button className="btn w-full my-2">Submit</button>
-            
+            <PostComment></PostComment>
           </div>
         </div>
       </div>
